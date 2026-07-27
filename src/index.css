@@ -1,0 +1,147 @@
+@import "tailwindcss";
+
+/* =========================================================
+   Lofi Pomodoro — 글로벌 테마
+   차분한 다크 인디고 + 따뜻한 파스텔 액센트
+   ========================================================= */
+@theme {
+  /* 배경 / 서피스 */
+  --color-night-950: #100d1a;
+  --color-night-900: #15121f;
+  --color-night-850: #1c1830;
+  --color-night-800: #241f38;
+  --color-night-700: #2f2945;
+  --color-night-600: #3d3656;
+
+  /* 따뜻한 파스텔 액센트 */
+  --color-peach-300: #ffd9c7;
+  --color-peach-400: #f7a8a0;
+  --color-peach-500: #ee8a7e;
+
+  --color-lavender-300: #d9c9f5;
+  --color-lavender-400: #b9a3e8;
+  --color-lavender-500: #9d8ec7;
+
+  --color-mint-300: #b9efd6;
+  --color-mint-400: #7fd3a8;
+
+  --color-cream: #f5f0e8;
+  --color-mist: #a89fb5;
+
+  /* 폰트 */
+  --font-sans: "Quicksand", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Quicksand", ui-sans-serif, system-ui, sans-serif;
+
+  /* 커스텀 애니메이션 */
+  --animate-drift: drift 18s ease-in-out infinite;
+  --animate-drift-slow: drift 28s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 4s ease-in-out infinite;
+  --animate-float-up: float-up 12s linear infinite;
+  --animate-breathe: breathe 6s ease-in-out infinite;
+}
+
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(3%, -4%) scale(1.05); }
+  66% { transform: translate(-3%, 3%) scale(0.97); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.04); }
+}
+
+@keyframes float-up {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.5; }
+  100% { transform: translateY(-110vh) translateX(20px); opacity: 0; }
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.03); opacity: 1; }
+}
+
+/* 베이스 리셋 */
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-night-950);
+  color: var(--color-cream);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* 스크롤바 은은하게 */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--color-night-600);
+  border-radius: 9999px;
+}
+
+/* 타이머 숫자 폭 일정하게 */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* 글래스모피즘 유틸 */
+.glass {
+  background: rgba(36, 31, 56, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* 레코드판 회전 — Tailwind 기본 spin 키워드 보장용 */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* 텍스트 그라데이션 */
+.text-gradient-warm {
+  background: linear-gradient(135deg, var(--color-peach-300), var(--color-lavender-300));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* 볼륨 슬라이더 — Lofi 감성 커스텀 */
+.lofi-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.12);
+  outline: none;
+  cursor: pointer;
+}
+.lofi-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-cream);
+  box-shadow: 0 0 0 4px rgba(245, 240, 232, 0.12);
+  transition: box-shadow 0.2s, transform 0.1s;
+}
+.lofi-range::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 0 6px rgba(245, 240, 232, 0.18);
+  transform: scale(1.1);
+}
+.lofi-range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-cream);
+  box-shadow: 0 0 0 4px rgba(245, 240, 232, 0.12);
+}
