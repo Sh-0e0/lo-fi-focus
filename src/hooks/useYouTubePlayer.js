@@ -58,6 +58,7 @@ export function useYouTubePlayer({ initialVideoId, initialVolume = 60 } = {}) {
   const [title, setTitle] = useState("");
   const playerRef = useRef(null);
   const containerRef = useRef(null);
+  const volumeRef = useRef(initialVolume);
 
   useEffect(() => {
     let cancelled = false;
@@ -78,7 +79,7 @@ export function useYouTubePlayer({ initialVideoId, initialVolume = 60 } = {}) {
           onReady: (e) => {
             setIsReady(true);
             try {
-              e.target.setVolume(initialVolume);
+              e.target.setVolume(volumeRef.current);
             } catch {
               /* ignore */
             }
@@ -91,6 +92,14 @@ export function useYouTubePlayer({ initialVideoId, initialVolume = 60 } = {}) {
           },
           onStateChange: (e) => {
             setIsPlaying(e.data === YT.PlayerState.PLAYING);
+            if (e.data === YT.PlayerState.PLAYING) {
+              // 재생 시작 시 볼륨 재적용 (유튜브가 볼륨을 리셋하는 현상 방지)
+              try {
+                e.target.setVolume(volumeRef.current);
+              } catch {
+                /* ignore */
+              }
+            }
             if (e.data === YT.PlayerState.PLAYING || e.data === YT.PlayerState.VIDEO_CUED) {
               try {
                 const data = e.target.getVideoData?.();
@@ -112,6 +121,7 @@ export function useYouTubePlayer({ initialVideoId, initialVolume = 60 } = {}) {
   const play = useCallback(() => {
     try {
       playerRef.current?.playVideo?.();
+      playerRef.current?.setVolume?.(volumeRef.current);
     } catch {
       /* ignore */
     }
@@ -126,6 +136,7 @@ export function useYouTubePlayer({ initialVideoId, initialVolume = 60 } = {}) {
   }, []);
 
   const setVolume = useCallback((v) => {
+    volumeRef.current = v;
     try {
       playerRef.current?.setVolume?.(v);
     } catch {

@@ -45,8 +45,11 @@ export default function MusicPlayer({
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-0 z-20 flex justify-center px-4 pb-5">
       <div className="glass pointer-events-auto w-full max-w-xl rounded-2xl border border-white/10 p-3 shadow-2xl">
-        {/* 숨겨진 유튜브 플레이어 — useYouTubePlayer가 이 div를 iframe으로 교체 */}
-        <div aria-hidden="true" className="hidden">
+        {/* 숨겨진 유튜브 플레이어 — 화면 밖에 렌더링(display:none 시 API 응답 불안정 이슈 회피) */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none fixed -left-[9999px] -top-[9999px] h-px w-px overflow-hidden opacity-0"
+        >
           <div ref={containerRef} />
         </div>
 

@@ -52,10 +52,11 @@ export default function App() {
     initialVolume: volume,
   });
 
-  // 플레이어 준비되면 / 볼륨 변경 시 동기화
+  // 볼륨 동기화 — player 준비 전에도 volumeRef는 갱신되어야 하므로 가드 없이 호출
+  const { isReady: playerReady, setVolume: setPlayerVolume } = player;
   useEffect(() => {
-    if (player.isReady) player.setVolume(volume);
-  }, [player.isReady, volume, player]);
+    setPlayerVolume(volume);
+  }, [playerReady, volume, setPlayerVolume]);
 
   // 세션 전환 알림음은 사용자 제스처 이후에만 AudioContext가 동작하므로
   // 첫 시작 클릭에서 알림 권한도 함께 요청
