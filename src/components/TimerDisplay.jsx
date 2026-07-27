@@ -22,6 +22,8 @@ export default function TimerDisplay({
   isRunning = false,
   completedSessions = 1,
   targetSessions = 4,
+  focusMinutes = 25,
+  breakMinutes = 5,
   onToggleStart = () => {},
   onReset = () => {},
   onModeChange = () => {},
@@ -49,13 +51,13 @@ export default function TimerDisplay({
           active={isFocus}
           onClick={() => onModeChange("focus")}
           label="집중"
-          sub="25분"
+          sub={`${focusMinutes}분`}
         />
         <ModeTab
           active={!isFocus}
           onClick={() => onModeChange("break")}
           label="휴식"
-          sub="5분"
+          sub={`${breakMinutes}분`}
         />
       </div>
 

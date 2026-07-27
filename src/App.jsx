@@ -153,6 +153,8 @@ export default function App() {
           isRunning={timer.isRunning}
           completedSessions={timer.completedSessions}
           targetSessions={targetSessions}
+          focusMinutes={focusMinutes}
+          breakMinutes={breakMinutes}
           onToggleStart={handleToggleStart}
           onReset={timer.reset}
           onModeChange={timer.switchMode}
