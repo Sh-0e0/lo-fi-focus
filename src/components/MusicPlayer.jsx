@@ -61,7 +61,7 @@ export default function MusicPlayer({
               style={{
                 animation: isPlaying ? "spin 4s linear infinite" : undefined,
                 backgroundImage:
-                  "repeating-radial-gradient(circle at center, #2f2945 0 2px, #241f38 2px 4px)",
+                  "repeating-radial-gradient(circle at center, var(--color-night-700) 0 2px, var(--color-night-800) 2px 4px)",
               }}
             />
             <div

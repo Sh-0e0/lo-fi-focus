@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { CloseIcon } from "./icons";
+import { THEMES } from "../themes";
 
 /**
  * SettingsModal — 타이머 설정 모달.
@@ -22,6 +23,8 @@ export default function SettingsModal({
   focusMinutes,
   breakMinutes,
   targetSessions,
+  theme,
+  onThemeChange,
   onFocusChange,
   onBreakChange,
   onTargetChange,
@@ -97,6 +100,39 @@ export default function SettingsModal({
             accent="var(--color-lavender-400)"
             onChange={onTargetChange}
           />
+        </div>
+
+        {/* 테마 선택 */}
+        <div className="mt-5">
+          <span className="text-sm font-medium text-cream">테마</span>
+          <div className="mt-2 grid grid-cols-2 gap-2">
+            {THEMES.map((t) => (
+              <button
+                key={t.id}
+                type="button"
+                onClick={() => onThemeChange(t.id)}
+                className={`flex items-center gap-2.5 rounded-xl p-2.5 ring-1 transition ${
+                  theme === t.id
+                    ? "ring-cream/70 bg-white/5"
+                    : "ring-white/10 hover:bg-white/5 hover:ring-white/20"
+                }`}
+                aria-label={`${t.name} 테마 적용`}
+              >
+                <span
+                  className="flex h-9 w-9 shrink-0 items-end gap-0.5 overflow-hidden rounded-lg p-1"
+                  style={{ background: t.swatch[0] }}
+                >
+                  {t.swatch.slice(1).map((c, i) => (
+                    <span key={i} className="h-2 flex-1 rounded-full" style={{ background: c }} />
+                  ))}
+                </span>
+                <span className="min-w-0 text-left">
+                  <span className="block text-xs font-semibold text-cream">{t.name}</span>
+                  <span className="block truncate text-[10px] text-mist">{t.desc}</span>
+                </span>
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="mt-6 border-t border-white/10 pt-4">

@@ -9,6 +9,7 @@ import { usePomodoroTimer } from "./hooks/usePomodoroTimer";
 import { useYouTubePlayer, parseYouTubeId } from "./hooks/useYouTubePlayer";
 import { notify, requestNotificationPermission } from "./utils/notify";
 import { playChime } from "./utils/sound";
+import { DEFAULT_THEME } from "./themes";
 
 const DEFAULT_LOFI_ID = "jfKfPfyJRdk"; // Lofi Girl 라이브 스트림
 const STORAGE_KEYS = {
@@ -17,6 +18,7 @@ const STORAGE_KEYS = {
   targetSessions: "lofi-target.sessions",
   lastVideoId: "lofi-youtube.lastId",
   volume: "lofi-youtube.volume",
+  theme: "lofi-theme",
 };
 
 export default function App() {
@@ -26,6 +28,7 @@ export default function App() {
   const [targetSessions, setTargetSessions] = useLocalStorage(STORAGE_KEYS.targetSessions, 4);
   const [lastVideoId, setLastVideoId] = useLocalStorage(STORAGE_KEYS.lastVideoId, DEFAULT_LOFI_ID);
   const [volume, setVolume] = useLocalStorage(STORAGE_KEYS.volume, 60);
+  const [theme, setTheme] = useLocalStorage(STORAGE_KEYS.theme, DEFAULT_THEME);
 
   const [settingsOpen, setSettingsOpen] = useState(false);
 
@@ -57,6 +60,18 @@ export default function App() {
   useEffect(() => {
     setPlayerVolume(volume);
   }, [playerReady, volume, setPlayerVolume]);
+
+  // 테마 적용 — <html data-theme> 와 모바일 주소창 색(theme-color) 동기화
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) {
+      const bg = getComputedStyle(document.documentElement)
+        .getPropertyValue("--color-night-950")
+        .trim();
+      if (bg) meta.setAttribute("content", bg);
+    }
+  }, [theme]);
 
   // 세션 전환 알림음은 사용자 제스처 이후에만 AudioContext가 동작하므로
   // 첫 시작 클릭에서 알림 권한도 함께 요청
@@ -163,6 +178,8 @@ export default function App() {
         focusMinutes={focusMinutes}
         breakMinutes={breakMinutes}
         targetSessions={targetSessions}
+        theme={theme}
+        onThemeChange={setTheme}
         onFocusChange={setFocusMinutes}
         onBreakChange={setBreakMinutes}
         onTargetChange={setTargetSessions}

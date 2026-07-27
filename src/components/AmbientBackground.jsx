@@ -22,7 +22,13 @@ export default function AmbientBackground() {
   return (
     <div className="pointer-events-none fixed inset-0 overflow-hidden">
       {/* 기본 그라데이션 베이스 */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,#241f38_0%,#15121f_45%,#100d1a_100%)]" />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(circle at 20% 15%, var(--color-night-800) 0%, var(--color-night-900) 45%, var(--color-night-950) 100%)",
+        }}
+      />
 
       {/* 떠다니는 글로우 오브 — 따뜻한 파스텔 */}
       <div className="absolute -top-32 -left-24 h-[28rem] w-[28rem] rounded-full bg-peach-500/20 blur-[120px] animate-drift" />

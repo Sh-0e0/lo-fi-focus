@@ -162,7 +162,7 @@ function ModeTab({ active, onClick, label, sub }) {
       className={`relative rounded-full px-6 py-2 text-sm font-semibold transition ${
         active ? "text-night-950" : "text-mist hover:text-cream"
       }`}
-      style={active ? { background: "rgba(245,240,232,0.92)" } : undefined}
+      style={active ? { background: "color-mix(in srgb, var(--color-cream) 92%, transparent)" } : undefined}
     >
       {label}
       <span className={`ml-1.5 text-xs ${active ? "opacity-60" : "opacity-50"}`}>
