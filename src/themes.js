@@ -28,6 +28,18 @@ export const THEMES = [
     desc: "차가운 블루 + 틸",
     swatch: ["#0e161f", "#5fbfb4", "#7ba5d9", "#6fd4c4"],
   },
+  {
+    id: "mono",
+    name: "모노크롬",
+    desc: "흑백 그레이스케일",
+    swatch: ["#111111", "#ffffff", "#a8a8a8", "#9a9a9a"],
+  },
+  {
+    id: "rose",
+    name: "로지 핑크",
+    desc: "따뜻한 로즈 + 핑크",
+    swatch: ["#1d0e18", "#ff7aa8", "#d98ab8", "#ff9ec4"],
+  },
 ];
 
 export const DEFAULT_THEME = "midnight";
