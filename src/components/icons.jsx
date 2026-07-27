@@ -148,3 +148,52 @@ export function CloseIcon({ className = "h-5 w-5" }) {
     </svg>
   );
 }
+
+export function SparkleIcon({ className = "h-5 w-5" }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12 2.5l1.9 5.1L19 9.5l-5.1 1.9L12 16.5l-1.9-5.1L5 9.5l5.1-1.9L12 2.5z" />
+      <path d="M18.5 14.5l.9 2.4 2.4.9-2.4.9-.9 2.4-.9-2.4-2.4-.9 2.4-.9.9-2.4z" opacity="0.55" />
+    </svg>
+  );
+}
+
+export function TimerIcon({ className = "h-5 w-5" }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="13" r="8" />
+      <path d="M12 9v4l2.5 2" />
+      <path d="M9 2h6" />
+      <path d="M12 2v3" />
+    </svg>
+  );
+}
+
+export function PaletteIcon({ className = "h-5 w-5" }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M12 3a9 9 0 1 0 0 18c1.7 0 2-1.3 1.2-2.2-.5-.6-.4-1.8.8-1.8H16a5 5 0 0 0 5-5c0-5-4-9-9-9z" />
+      <circle cx="7.5" cy="12" r="1.1" fill="currentColor" stroke="none" />
+      <circle cx="10" cy="8" r="1.1" fill="currentColor" stroke="none" />
+      <circle cx="14.5" cy="8" r="1.1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}

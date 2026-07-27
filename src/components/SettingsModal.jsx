@@ -29,6 +29,7 @@ export default function SettingsModal({
   onBreakChange,
   onTargetChange,
   onResetSessions,
+  onShowTutorial,
 }) {
   // Esc로 닫기
   useEffect(() => {
@@ -135,7 +136,14 @@ export default function SettingsModal({
           </div>
         </div>
 
-        <div className="mt-6 border-t border-white/10 pt-4">
+        <div className="mt-6 space-y-2 border-t border-white/10 pt-4">
+          <button
+            type="button"
+            onClick={onShowTutorial}
+            className="w-full rounded-xl bg-night-800/60 px-4 py-2.5 text-sm font-medium text-mist transition hover:bg-night-700 hover:text-cream"
+          >
+            사용법 다시 보기
+          </button>
           <button
             type="button"
             onClick={onResetSessions}

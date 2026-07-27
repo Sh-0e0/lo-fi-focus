@@ -3,6 +3,7 @@ import AmbientBackground from "./components/AmbientBackground";
 import TimerDisplay from "./components/TimerDisplay";
 import MusicPlayer from "./components/MusicPlayer";
 import SettingsModal from "./components/SettingsModal";
+import Tutorial from "./components/Tutorial";
 import { SettingsIcon } from "./components/icons";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import { usePomodoroTimer } from "./hooks/usePomodoroTimer";
@@ -19,6 +20,7 @@ const STORAGE_KEYS = {
   lastVideoId: "lofi-youtube.lastId",
   volume: "lofi-youtube.volume",
   theme: "lofi-theme",
+  tutorialSeen: "lofi-tutorial-seen",
 };
 
 export default function App() {
@@ -29,8 +31,24 @@ export default function App() {
   const [lastVideoId, setLastVideoId] = useLocalStorage(STORAGE_KEYS.lastVideoId, DEFAULT_LOFI_ID);
   const [volume, setVolume] = useLocalStorage(STORAGE_KEYS.volume, 60);
   const [theme, setTheme] = useLocalStorage(STORAGE_KEYS.theme, DEFAULT_THEME);
+  const [tutorialSeen, setTutorialSeen] = useLocalStorage(
+    STORAGE_KEYS.tutorialSeen,
+    false,
+  );
 
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [tutorialOpen, setTutorialOpen] = useState(false);
+
+  // 첫 방문 시 튜토리얼 자동 실행
+  useEffect(() => {
+    if (!tutorialSeen) setTutorialOpen(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleTutorialClose = useCallback(() => {
+    setTutorialOpen(false);
+    setTutorialSeen(true);
+  }, [setTutorialOpen, setTutorialSeen]);
 
   // --- 타이머 로직 ---
   const handleSessionComplete = useCallback(({ from, completed }) => {
@@ -186,7 +204,14 @@ export default function App() {
         onBreakChange={setBreakMinutes}
         onTargetChange={setTargetSessions}
         onResetSessions={timer.resetCompleted}
+        onShowTutorial={() => {
+          setSettingsOpen(false);
+          setTutorialOpen(true);
+        }}
       />
+
+      {/* 튜토리얼 */}
+      <Tutorial open={tutorialOpen} onClose={handleTutorialClose} />
     </div>
   );
 }
